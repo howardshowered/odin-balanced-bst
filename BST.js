@@ -51,6 +51,44 @@ export class Tree {
         return false;
     }
 
+    insert(value) {
+
+        let curr = this.root;
+        const newNode = new Node(value);
+        if (!curr)
+        {
+            this.root = newNode;
+            return;
+        }
+
+        while(curr){
+            if( curr.data > value) {
+                if(!curr.left){
+                    curr.left = newNode;
+                    curr = null;
+                } else {
+                    curr = curr.left;
+                }
+      
+
+            } else {
+                if(!curr.right){
+                    curr.right = newNode;
+                    curr = null;
+                } else {
+                     curr = curr.right; 
+                }
+               
+            }
+
+
+        }
+
+
+
+
+    }
+
 }
 
     const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -63,10 +101,12 @@ export class Tree {
         prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
 
-const newTree = new Tree([1,2,2,3,4,5,5,6,10,2,2,1,1,3,0]);
+const newTree = new Tree([1,2,2,3,5,5,6,10,2,2,1,1,3,0]);
 prettyPrint(newTree.root);
 console.log(newTree.includes(1));
 
 console.log(newTree.includes(2500));
 console.log(newTree.includes(3));
+newTree.insert(4);
+prettyPrint(newTree.root);
   
