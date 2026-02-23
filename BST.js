@@ -30,12 +30,26 @@ export class Tree {
         const node = new Node(array[mid]);
         node.left = this.#buildTree(array,start,mid-1);
         node.right = this.#buildTree(array,mid+1,end);
+
         return node;
 
     }
 
+    includes(value) 
+    {
+        let current = this.root;
+        while(current){
+            if (current.data === value) {
+                return true;
+            } else if(current.data > value) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
 
-
+        }
+        return false;
+    }
 
 }
 
@@ -51,4 +65,8 @@ export class Tree {
 
 const newTree = new Tree([1,2,2,3,4,5,5,6,10,2,2,1,1,3,0]);
 prettyPrint(newTree.root);
+console.log(newTree.includes(1));
+
+console.log(newTree.includes(2500));
+console.log(newTree.includes(3));
   
