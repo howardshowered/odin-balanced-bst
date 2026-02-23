@@ -12,17 +12,25 @@ export class Tree {
         this.root = null;
 
         //sort array. maybe move this logic into buildTree 
-        this.array.sort((a,b) => a - b);
-        const uniqueArray = [...new Set(this.array)];
-        console.log("previous array:" + this.array);
-        console.log("fixed array: " + uniqueArray);
-        this.root = this.#buildTree(array);
+        const sortedArray = this.#sortArray(array);
+        this.root = this.#buildTree(sortedArray);
     
     }
 
-    #buildTree(array) {
-        //sort array
+    #sortArray(array) {
+        array.sort((a,b) => a - b);
+        return [...new Set(array)];
+    }
 
+    #buildTree(array, start = 0, end = array.length - 1) {
+        if(start > end)
+            return null;
+
+        const mid = Math.floor((start + end)/ 2);
+        const node = new Node(array[mid]);
+        node.left = this.#buildTree(array,s,mid-1);
+        node.right = this.#buildTree(array,mid+1,e);
+        return node;
 
     }
 
