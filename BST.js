@@ -28,14 +28,27 @@ export class Tree {
 
         const mid = Math.floor((start + end)/ 2);
         const node = new Node(array[mid]);
-        node.left = this.#buildTree(array,s,mid-1);
-        node.right = this.#buildTree(array,mid+1,e);
+        node.left = this.#buildTree(array,start,mid-1);
+        node.right = this.#buildTree(array,mid+1,end);
         return node;
 
     }
 
 
+
+
 }
 
+    const prettyPrint = (node, prefix = '', isLeft = true) => {
+        if (node === null || node === undefined) {
+            return;
+        }
+
+        prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+        prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+    }
+
 const newTree = new Tree([1,2,2,3,4,5,5,6,10,2,2,1,1,3,0]);
+prettyPrint(newTree.root);
   
