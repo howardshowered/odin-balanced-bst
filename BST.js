@@ -74,18 +74,63 @@ export class Tree {
             } else {
                 if(!curr.right){
                     curr.right = newNode;
-                    curr = null;
-                } else {
+                  } else {
                      curr = curr.right; 
-                }
+                }             curr = null;
+     
                
             }
+        }
+    }
 
+    getSuccessor(curr) {
+        curr = curr.right;
+        while(curr !== null && curr.left !== null)
+            curr = curr.left;
+        return curr;
+    }
+    delete(root = this.root, value)
+    {
+        if (root === null)
+            return root;
+
+        if(root.data > value)
+            root.left = delete(root.left, value);
+
+        else if(root.data < value)
+            root.right = delete(root.right, value);
+        else {
+            //Node with 0 or 1 child
+            if(root.left === null)
+                return root.right;
+            if(!root.right === null)
+                return root.left;
+
+            // Node with 2 children
+            const succ = getSuccessor(root);
+            root.data = succ.data;
+            root.right = delete(root.right, succ.data);
 
         }
+    }
 
+    //breadth-first level
+    levelOrderForEach(callback, root = this.root) {
+        if(root === NULL) return;
+        const queue = [];
+        queue.push(root);
+        while( queue.length > 0) 
+        {
+            callback(root.value);
+            if(root.left !== null)
+                queue.push(root.left);
+            if ( root.right !== null)
+                queue.push(root.right);
+            root = queue.shift();
+        }
+    }
 
-
+    inOrderForEach(callback, root = this.root) {
 
     }
 
