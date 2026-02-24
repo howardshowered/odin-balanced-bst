@@ -131,6 +131,12 @@ export class Tree {
     }
 
     inOrderForEach(callback, root = this.root) {
+        if (typeof callback !== 'function') throw new Error('A callback is required');
+        if(root === null)
+            return null;
+        this.inOrderForEach(callback, root.left);
+        callback(root.data);
+        this.inOrderForEach(callback, root.right);
 
     }
 
