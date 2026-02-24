@@ -140,6 +140,30 @@ export class Tree {
 
     }
 
+    preOrderForeach(callback, root = this.root)
+    {
+        if (typeof callback !== 'function') throw new Error('A callback is required');
+        if(root === null)
+            return null;
+        callback(root.data);
+        this.inOrderForEach(callback, root.left);
+        this.inOrderForEach(callback, root.right);
+
+    }
+
+    postOrderForEach(callback, root = this.root)
+    {
+        if (typeof callback !== 'function') throw new Error('A callback is required');
+        if(root === null)
+            return null;
+        this.inOrderForEach(callback, root.left);
+        this.inOrderForEach(callback, root.right);
+        callback(root.data);
+
+        
+    }
+
+
 }
 
     const prettyPrint = (node, prefix = '', isLeft = true) => {
