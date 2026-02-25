@@ -137,7 +137,6 @@ export class Tree {
         this.inOrderForEach(callback, root.left);
         callback(root.data);
         this.inOrderForEach(callback, root.right);
-
     }
 
     preOrderForeach(callback, root = this.root)
@@ -148,7 +147,6 @@ export class Tree {
         callback(root.data);
         this.inOrderForEach(callback, root.left);
         this.inOrderForEach(callback, root.right);
-
     }
 
     postOrderForEach(callback, root = this.root)
@@ -159,22 +157,20 @@ export class Tree {
         this.inOrderForEach(callback, root.left);
         this.inOrderForEach(callback, root.right);
         callback(root.data);
-
-        
     }
 
 
 }
 
-    const prettyPrint = (node, prefix = '', isLeft = true) => {
-        if (node === null || node === undefined) {
-            return;
-        }
-
-        prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-        prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+const prettyPrint = (node, prefix = '', isLeft = true) => {
+    if (node === null || node === undefined) {
+        return;
     }
+
+    prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+    prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+}
 
 const newTree = new Tree([1,2,2,3,5,5,6,10,2,2,1,1,3,0]);
 prettyPrint(newTree.root);
