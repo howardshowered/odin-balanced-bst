@@ -145,8 +145,8 @@ export class Tree {
         if(root === null)
             return null;
         callback(root.data);
-        this.inOrderForEach(callback, root.left);
-        this.inOrderForEach(callback, root.right);
+        this.preOrderForeach(callback, root.left);
+        this.preOrderForeach(callback, root.right);
     }
 
     postOrderForEach(callback, root = this.root)
@@ -154,12 +154,44 @@ export class Tree {
         if (typeof callback !== 'function') throw new Error('A callback is required');
         if(root === null)
             return null;
-        this.inOrderForEach(callback, root.left);
-        this.inOrderForEach(callback, root.right);
+        this.postOrderForEach(callback, root.left);
+        this.postOrderForEach(callback, root.right);
         callback(root.data);
     }
 
+    // calculateHeight(value, root = this.root, height = 0) 
+    // {   
+    //     // let height = 0;
+    //     if(root === null) {
+    //         return -1;
+    //     }
 
+    //     if( root.data > value) {
+    //         height++;
+    //         calculateHeight(value, root.left, height);
+    //     } else if( root.data < value) {
+    //         height++;
+    //         calculateHeight(value, root.right, height);
+    //     } else {
+    //         return height;
+    //     }
+
+    // }
+
+    height(value) {
+    const findNode = (node, val) => {
+      if (!node) return null;
+      if (val === node.data) return node;
+      return val < node.data ? findNode(node.left, val) : findNode(node.right, val);
+    };
+    const node = findNode(this.root, value);
+    if (!node) return undefined;
+    const h = (n) => {
+      if (!n) return -1; // so leaf returns 0
+      return Math.max(h(n.left), h(n.right)) + 1;
+    };
+    return h(node);
+    }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -180,4 +212,5 @@ console.log(newTree.includes(2500));
 console.log(newTree.includes(3));
 newTree.insert(4);
 prettyPrint(newTree.root);
+console.log(newTree.height(3));
   
